@@ -1,5 +1,5 @@
 # 第一阶段：构建阶段
-FROM node:16 AS builder
+FROM node:18 AS builder
 
 # 设置工作目录
 WORKDIR /app
@@ -16,7 +16,8 @@ FROM nginx:1.27.3-alpine
 
 
 # 复制构建完成的静态文件到 Nginx 的公共目录
-COPY --from=builder /app/build /usr/share/nginx/html
+# 这个地方需要根据package.json的配置去更改最终静态的文件夹名称,因为部分脚手架无法通过环境变量去修改打包的静态文件夹名称
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # 暴露 Nginx 的默认端口
 EXPOSE 80
