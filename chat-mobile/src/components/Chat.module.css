@@ -1,0 +1,180 @@
+:root {
+  /* 基础单位，1rem = 16px */
+  font-size: 16px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 0.0625rem solid #eee; /* 1px */
+  height: 2.75rem; /* 44px */
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.messageList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 3.75rem 0.75rem 4.375rem; /* 60px 12px 70px */
+  -webkit-overflow-scrolling: touch; /* iOS 滚动优化 */
+  width: 98vw;
+}
+
+.messageItem {
+  padding: 0.5rem 0;
+  background: none !important;
+  width: 100%;
+}
+
+.messageContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 88%;
+  position: relative;
+}
+
+.userMessage {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.userMessage .messageContent {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+.avatar {
+  width: 2rem; /* 32px */
+  height: 2rem;
+  border-radius: 0.25rem; /* 4px */
+  flex-shrink: 0;
+}
+
+.bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  display: flex;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  max-width: calc(100% - 3rem); /* 留出头像空间 */
+
+}
+
+.userMessage .bubble {
+  background-color: #007AFF;
+  color: white;
+  display: flex;
+  flex-direction: row; /* 确保内容从左到右排列 */
+  align-items: center;
+  /* border-top-right-radius: 0.25rem; */
+}
+
+.aiMessage .bubble {
+  background-color: white;
+  border-top-left-radius: 0.25rem;
+  color: #333;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  color: #999;
+  font-size: 0.875rem; /* 14px */
+}
+
+.inputArea {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 98vw;
+  padding: 0.75rem;
+  background-color: #fff;
+  border-top: 0.0625rem solid #eee;
+  min-height: 3.5rem; /* 56px */
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); /* 适配 iPhone X 及以上机型 */
+}
+
+.input {
+  flex: 1;
+  border-radius: 1.25rem; /* 20px */
+  background-color: #f5f5f5;
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  min-height: 2.5rem; /* 40px */
+}
+
+.sendButton {
+  width: 2.5rem; /* 40px */
+  height: 2.5rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 媒体查询适配不同屏幕尺寸 */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+  
+  .navbar {
+    max-width: 768px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .inputArea {
+    max-width: 768px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* 适配深色模式 */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: #1a1a1a;
+  }
+  
+  .navbar,
+  .inputArea {
+    background-color: #242424;
+    border-color: #333;
+  }
+  
+  .aiMessage .bubble {
+    background-color: #2a2a2a;
+    color: #fff;
+  }
+  
+  .input {
+    background-color: #333;
+    color: #fff;
+  }
+} 
