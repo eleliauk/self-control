@@ -28,8 +28,17 @@ const Chat: React.FC = () => {
 
   // 生成 sessionId
   function generateSessionId() {
-    const randomPart = Math.random().toString(36).substr(2, 12);
-    return `sessionId_${randomPart}`;
+    // 检查 localStorage 中是否已经有 sessionId
+    let sessionId = window.localStorage.getItem('sessionId');
+    
+    if (!sessionId) {
+      // 如果没有 sessionId，生成一个新的，并保存到 localStorage
+      const randomPart = Math.random().toString(36).substr(2, 12); 
+      sessionId = `sessionId_${randomPart}`;
+      window.localStorage.setItem('sessionId', sessionId); // 保存 sessionId 到 localStorage
+    }
+    
+    return sessionId;
   }
 
   useEffect(() => {
