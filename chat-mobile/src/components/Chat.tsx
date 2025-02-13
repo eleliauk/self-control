@@ -59,7 +59,7 @@ const Chat: React.FC = () => {
       // 发送请求并等待响应
       const response:response = await post('/chatBot/textChat', {
         sessionId: sessionid,
-        openid: "openid_"+openid,
+        openid: openid,
         reqMessage: reqMessage.content,
       });
 

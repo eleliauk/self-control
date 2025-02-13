@@ -32,7 +32,7 @@ function FeedForm() {
             second: '2-digit' 
         }).replace(/\//g, '-'); 
         const requestData= {
-            openid : "openid_"+params.get('openid')|| '', // Get openid, fallback to a default
+            openid : params.get('openid')|| '', // Get openid, fallback to a default
             chineseLearnDegree: values.chineseLearnDegree,
             mathLearnDegree: values.mathLearnDegree,
             englishLearnDegree: values.englishLearnDegree,
@@ -54,8 +54,6 @@ function FeedForm() {
             selfEvalReflect: values.selfEvalReflect,
             selfEvalMessage: values.selfEvalMessage,
             createTime:formattedTime,
-            // updateTime:Date.now().toString()
-            // createTime and updateTime are typically handled server-side
         };
         
         try {
