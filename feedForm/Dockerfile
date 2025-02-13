@@ -8,6 +8,7 @@ WORKDIR /app
 COPY . .
 
 # 安装依赖并构建静态文件
+RUN npm install -g pnpm
 RUN pnpm install
 RUN pnpm build
 
