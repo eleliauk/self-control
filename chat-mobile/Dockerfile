@@ -8,9 +8,8 @@ WORKDIR /app
 COPY . .
 
 # 安装依赖并构建静态文件
-RUN npm install -g pnpm
-RUN pnpm install
-RUN pnpm build
+RUN yarn install
+RUN yarn build
 
 # 第二阶段：最终镜像
 FROM nginx:1.27.3-alpine
