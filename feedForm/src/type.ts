@@ -21,5 +21,5 @@ export interface UserLearningData {
     selfEvalReflect: number;
     selfEvalMessage: string;
     createTime: string;
-    updateTime: string;
+  //  updateTime: string;
 }

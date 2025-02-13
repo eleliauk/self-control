@@ -20,7 +20,7 @@ const Chat: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
+  const url=new URLSearchParams(window.location.search).get('headImgUrl')||''
   // 自动滚动到底部
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -52,14 +52,14 @@ const Chat: React.FC = () => {
 
     try {
       // 获取 openid 和生成 sessionId
-      const openid = new URLSearchParams(window.location.search).get('open_id') || 'openid_aeb5775480c1';
+      const openid = new URLSearchParams(window.location.search).get('openid') || '';
      const sessionid = generateSessionId();
       const reqMessage = userMessage;
 
       // 发送请求并等待响应
       const response:response = await post('/chatBot/textChat', {
         sessionId: sessionid,
-        openid: openid,
+        openid: "openid_"+openid,
         reqMessage: reqMessage.content,
       });
 
@@ -95,7 +95,7 @@ const Chat: React.FC = () => {
               <div className={styles.messageContent}>
                 <Avatar
                   className={styles.avatar}
-                  src={message.role === 'user' ? '/user-avatar.png' : '/ai-avatar.png'}
+                  src={message.role === 'user' ? url : '/ai-avatar.png'}
                 />
                 <div className={styles.bubble}>{message.content}</div>
               </div>
