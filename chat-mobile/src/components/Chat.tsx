@@ -41,7 +41,7 @@ const Chat: React.FC = () => {
     return sessionId;
   }
 
-  useEffect(() => {
+   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
