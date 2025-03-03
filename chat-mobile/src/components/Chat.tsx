@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NavBar, List, Input, Button, Avatar, SpinLoading } from 'antd-mobile';
 import { SendOutline } from 'antd-mobile-icons';
-import styles from './Chat.module.css';
+import './Chat.css';
 import { post } from '../fetch';
 
 interface Message {
@@ -89,30 +89,30 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <NavBar className={styles.navbar}>AI 助手</NavBar>
+    <div className="chat-container">
+      <NavBar className="chat-navbar">AI 助手</NavBar>
       
-      <div className={styles.messageList}>
+      <div className="chat-message-list">
         <List>
           {messages.map(message => (
             <List.Item
               key={message.id}
-              className={`${styles.messageItem} ${
-                message.role === 'user' ? styles.userMessage : styles.aiMessage
+              className={`chat-message-item ${
+                message.role === 'user' ? 'chat-user-message' : 'chat-ai-message'
               }`}
             >
-              <div className={styles.messageContent}>
+              <div className="chat-message-content">
                 <Avatar
-                  className={styles.avatar}
+                  className="chat-avatar"
                   src={message.role === 'user' ? url : '/ai-avatar.png'}
                 />
-                <div className={styles.bubble}>{message.content}</div>
+                <div className="chat-bubble">{message.content}</div>
               </div>
             </List.Item>
           ))}
         </List>
         {loading && (
-          <div className={styles.loading}>
+          <div className="chat-loading">
             <SpinLoading />
             <span>AI 正在思考...</span>
           </div>
@@ -120,16 +120,16 @@ const Chat: React.FC = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className={styles.inputArea}>
+      <div className="chat-input-area">
         <Input
-          className={styles.input}
+          className="chat-input"
           placeholder="输入消息..."
           value={inputValue}
           onChange={val => setInputValue(val)}
           onEnterPress={handleSend}
         />
         <Button
-          className={styles.sendButton}
+          className="chat-send-button"
           onClick={handleSend}
           disabled={loading || !inputValue.trim()}
         >
