@@ -1,4 +1,4 @@
-const preUrl = "https://www.zwgl.org.cn:8789"
+const preUrl = "https://www.zwgl.org.cn/wechatAccount"
 export async function post<T, U>(url = '', data: U): Promise<T> {
     const headers = new Headers();  
     const response = await fetch(`${preUrl}${url}`, {

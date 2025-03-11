@@ -7,19 +7,31 @@ interface Result {
     result:Record<string, unknown>
 }
 function FeedForm() {
-    // const handleWX = () => {
-    //     const open_id = new URLSearchParams(window.location.search).get('open_id') || '';
-
-    //     console.log('code', open_id);
-    //     const username = new URLSearchParams(window.location.search).get('open_id') || '';
-
-    //     console.log('code', username);
-
-    // };
     const [form] = Form.useForm();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const onFinish = async (values) => {
+    interface FormValues {
+        chineseLearnDegree: number;
+        mathLearnDegree: number;
+        englishLearnDegree: number;
+        coursePreviewDuration: number;
+        coursePreviewCompletion: number;
+        coursePreviewReadMaterial: number;
+        coursePreviewMark: number;
+        coursePreviewAskQuestion: number;
+        reviewedDuration: number;
+        reviewedCompletion: number;
+        reviewedNewKnowledge: number;
+        reviewedLeakFilling: number;
+        reviewedCarding: number;
+        homeworkPracticeDuration: number;
+        homeworkPracticeCompletion: number;
+        homeworkPracticeReadMaterial: number;
+        homeworkPracticeMark: number;
+        homeworkPracticeAskQuestion: number;
+        selfEvalReflect: number;
+        selfEvalMessage: string;
+    }
+
+    const onFinish = async (values: FormValues): Promise<void> => {
         console.log('Form Values:', values); 
         const params = new URLSearchParams(window.location.search);
         const now = new Date();
@@ -31,8 +43,8 @@ function FeedForm() {
             minute: '2-digit', 
             second: '2-digit' 
         }).replace(/\//g, '-'); 
-        const requestData= {
-            openid : params.get('openid')|| '', // Get openid, fallback to a default
+        const requestData: UserLearningData = {
+            openid: params.get('openid') || '', // Get openid, fallback to a default
             chineseLearnDegree: values.chineseLearnDegree,
             mathLearnDegree: values.mathLearnDegree,
             englishLearnDegree: values.englishLearnDegree,
@@ -41,11 +53,11 @@ function FeedForm() {
             coursePreviewReadMaterial: values.coursePreviewReadMaterial,
             coursePreviewMark: values.coursePreviewMark,
             coursePreviewAskQuestion: values.coursePreviewAskQuestion,
-            reviewedDuration: values.reviewedDuration || 0,
-            reviewedCompletion: values.reviewedCompletion || 0,
-            reviewedNewKnowledge: values.reviewedReadMaterial || 0,
-            reviewedLeakFilling: values.reviewedMark || 0,
-            reviewedCarding: values.reviewedAskQuestion || 0,
+            reviewedDuration: values.reviewedDuration,
+            reviewedCompletion: values.reviewedCompletion,
+            reviewedNewKnowledge: values.reviewedNewKnowledge,
+            reviewedLeakFilling: values.reviewedLeakFilling,
+            reviewedCarding: values.reviewedCarding,
             homeworkPracticeDuration: values.homeworkPracticeDuration,
             homeworkPracticeCompletion: values.homeworkPracticeCompletion,
             homeworkPracticeFinish: values.homeworkPracticeReadMaterial,
@@ -53,16 +65,16 @@ function FeedForm() {
             homeworkPracticeCheck: values.homeworkPracticeAskQuestion,
             selfEvalReflect: values.selfEvalReflect,
             selfEvalMessage: values.selfEvalMessage,
-            createTime:formattedTime,
+            createTime: formattedTime,
         };
         
         try {
-            const response = await post<Result,UserLearningData>('/wxPunchClock/saveTodayELLearnReflect', requestData); // Replace '/your-api-endpoint'
+            const response = await post<Result, UserLearningData>('/wxPunchClock/saveTodayELLearnReflect', requestData); // Replace '/your-api-endpoint'
             console.log('Success:', response);
             // Handle success (e.g., show a success message, redirect, etc.)
             alert("提交成功！"); // Simple success feedback
             form.resetFields(); //clear form after submit.
-        } catch (error) {
+        } catch (error: unknown) {
             console.error('Error:', error);
             // Handle errors (e.g., show an error message)
          //   alert(`提交失败: ${error.message}`);
@@ -218,6 +230,29 @@ function FeedForm() {
                         <Slider min={0} max={10} />
                     </Form.Item>
                     <Form.Item label="主动提出疑问" name="coursePreviewAskQuestion">
+                        <Slider min={0} max={10} />
+                    </Form.Item>
+                    <Divider />
+                    <h2 className="text-center font-bold text-lg text-blue-500">复习情况</h2>
+                    <Form.Item label="复习时长（分钟）" name="reviewedDuration">
+                        <InputNumber min={0} />
+                    </Form.Item>
+                    <Form.Item label="完成度" name="reviewedCompletion">
+                        <Radio.Group>
+                            <Radio value={0}>0%</Radio>
+                            <Radio value={25}>25%</Radio>
+                            <Radio value={50}>50%</Radio>
+                            <Radio value={75}>75%</Radio>
+                            <Radio value={100}>100%</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item label="新知识点掌握" name="reviewedNewKnowledge">
+                        <Slider min={0} max={10} />
+                    </Form.Item>
+                    <Form.Item label="知识点查漏补缺" name="reviewedLeakFilling">
+                        <Slider min={0} max={10} />
+                    </Form.Item>
+                    <Form.Item label="知识点梳理归纳" name="reviewedCarding">
                         <Slider min={0} max={10} />
                     </Form.Item>
                     <Divider />
